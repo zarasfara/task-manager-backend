@@ -20,11 +20,12 @@ class LoginController extends Controller
 
             return redirect()->route('dashboard');
         }
+
         return back();
     }
 
     /**
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function logout(): RedirectResponse
     {

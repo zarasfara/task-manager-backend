@@ -23,7 +23,7 @@ class AuthTest extends TestCase
             ->create(['password' => bcrypt($password)]);
 
         $response = $this->post(route('login'), ['email' => $user->email, 'password' => $password]);
-        $response->assertStatus(200);
+        $response->assertRedirect(route('dashboard'));
     }
 
     public function test_logout()

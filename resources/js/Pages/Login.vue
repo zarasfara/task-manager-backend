@@ -13,8 +13,8 @@
                         id="email" type="email" placeholder="email" v-model="form.email"
                         :class="errors.email ? 'border-red-500' : ''">
 
-                    <p v-if="errors.password " class="text-red-500 text-xs">
-                        {{ errors.password }}</p>
+                    <p v-if="errors.email " class="text-red-500 text-xs">
+                        {{ errors.email }}</p>
                 </div>
                 <div class="mb-6">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="password">

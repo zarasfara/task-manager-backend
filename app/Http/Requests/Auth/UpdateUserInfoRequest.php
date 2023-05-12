@@ -24,11 +24,11 @@ class UpdateUserInfoRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'surname' => 'nullable',
-            'nickname' => 'required',
-            'email' => 'email|required',
-            'avatar' =>'nullable|mimes:jpeg,png,bpm',
+            'name' => ['required'],
+            'surname' => ['nullable'],
+            'nickname' => ['required'],
+            'email' => ['email','required'],
+            'avatar' =>['mimes:jpeg,png,bpm', 'nullable'],
         ];
     }
 }
