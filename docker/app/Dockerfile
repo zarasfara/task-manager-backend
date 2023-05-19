@@ -16,17 +16,17 @@ RUN apt-get update && \
 # Устанавливаем Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Копируем исходный код Laravel в контейнер
-COPY . /var/www/html
+# Копируем исходный код проекта в контейнер
+COPY . /var/www
 
 # Устанавливаем зависимости
-WORKDIR /var/www/html
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader
-#--no-dev
+WORKDIR /var/www
+RUN composer install --no-interaction --prefer-dist --no-scripts --no-progress --optimize-autoloader
 
-# Добавляем права на запись в storage и bootstrap/cache
-RUN chown -R www-data:www-data storage bootstrap/cache
+RUN chown -R www-data:www-data storage/ bootstrap/cache
 RUN chmod -R 775 storage bootstrap/cache
 
 # Определяем точку входа для запуска приложения
-# CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+# CMD ["php", "artisan", "key", "generate"]
+
+# ENTRYPOINT [ "docker/app/setup.sh" ]
