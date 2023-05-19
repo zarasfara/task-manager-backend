@@ -10,7 +10,6 @@ class PageController extends Controller
 {
     public function home()
     {
-        Auth::loginUsingId(3);
         return Inertia::render('Index');
     }
 
