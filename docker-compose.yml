@@ -4,9 +4,9 @@ services:
     app:
         build:
             context: .
-            dockerfile: docker/app/Dockerfile
+            dockerfile: "docker/${APP_ENV}/app/Dockerfile"
         volumes:
-            - ./:/var/www/html
+            - .:/var/www
         depends_on:
             - db
 
@@ -15,8 +15,8 @@ services:
         ports:
             - "8000:80"
         volumes:
-            - ./docker/nginx/conf.d/:/etc/nginx/conf.d
-            - ./:/var/www/html
+            - ./docker/${APP_ENV}/nginx/:/etc/nginx/conf.d
+            - ./:/var/www
         depends_on:
             - app
 
