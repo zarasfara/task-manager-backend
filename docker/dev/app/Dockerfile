@@ -19,14 +19,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Копируем исходный код проекта в контейнер
 COPY . /var/www
 
-# Устанавливаем зависимости
 WORKDIR /var/www
-# RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
 RUN chown -R www-data:www-data storage/ bootstrap/cache
 RUN chmod -R 775 storage bootstrap/cache
-
-# Определяем точку входа для запуска приложения
-# CMD ["php", "artisan", "key", "generate"]
-
-# ENTRYPOINT [ "docker/dev/docker-entrypoint.sh" ]
