@@ -18,6 +18,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/check', function () {
-    return "check success!";
+Route::group([
+    'prefix'     => 'v1',
+    'as'         => 'api.',
+    'middleware' => ['auth:sanctum']
+], function () {
+    Route::get('/', function () {
+        return "success auth";
+    });
+
 });
