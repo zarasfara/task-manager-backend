@@ -16,22 +16,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([RoleSeeder::class,]);
-
-        \App\Models\User::factory()->count(2)->create();
-
-        \App\Models\User::factory()->create([
+        $admin = \App\Models\User::factory()->create([
             'name' => 'admin',
             'email' => 'admin@mail.com',
-            'role_id' => 1,
-            'password' => Hash::make('admin123'),
+            'password' => Hash::make('admin'),
         ]);
+
+        var_dump($admin->createToken('admin-token')->plainTextToken);
 
         \App\Models\User::factory()->create([
             'name' => 'test',
             'email' => 'test@email.com',
-            'role_id' => 3,
-            'password' => Hash::make('testtest'),
+            'password' => Hash::make('test123'),
         ]);
 
     }
