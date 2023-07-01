@@ -14,14 +14,8 @@ class UserController extends Controller
 {
     public function create(Request $request): JsonResponse
     {
-        /**
-         * @var User
-         */
-        $user = User::create($request->all());
-
         return response()->json([
-            'user' => $user,
+            'user' => 'user',
         ], Response::HTTP_CREATED);
-
     }
 }

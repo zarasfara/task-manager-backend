@@ -69,7 +69,7 @@ return [
     |
     */
 
-    'frontend_url' => env('FRONTEND_URL', 'https://frontend.com'),
+    'frontend_url' => env('FRONTEND_URL'),
 
     /*
     |--------------------------------------------------------------------------
@@ -198,6 +198,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Spatie\Permission\PermissionServiceProvider::class,
 
         /*
          * Application Service Providers...

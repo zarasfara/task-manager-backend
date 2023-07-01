@@ -2,13 +2,14 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Role;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
+    use WithoutModelEvents;
+
     /**
      * Seed the application's database.
      *
@@ -16,19 +17,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call([
+            RolesAndPermissionsSeeder::class,
+        ]);
+
+        \App\Models\User::factory(1)->create();
+
         $admin = \App\Models\User::factory()->create([
-            'name' => 'admin',
-            'email' => 'admin@mail.com',
-            'password' => Hash::make('admin'),
+            'name'     => 'admin',
+            'email'    => 'admin@mail.com',
+            'password' => 'admin',
         ]);
 
-        var_dump($admin->createToken('admin-token')->plainTextToken);
-
-        \App\Models\User::factory()->create([
-            'name' => 'test',
-            'email' => 'test@email.com',
-            'password' => Hash::make('test123'),
-        ]);
-
+        $admin->assignRole('admin');
     }
 }
