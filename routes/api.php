@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\V1\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,11 +23,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group([
     'prefix'     => 'v1',
-    'as'         => 'api.',
+    'as'         => 'api.v1.',
     'middleware' => ['auth:sanctum']
 ], function () {
-    Route::get('/', function () {
-        return "success auth";
+    Route::group(['prefix' => 'admin'], function () {
+        Route::post('user/create', [UserController::class, 'create'])->name('user.create');
     });
 
 });

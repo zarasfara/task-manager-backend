@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\User
@@ -16,7 +18,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $nickname
  * @property string $avatar
  * @property string $email
- * @property int $role_id
  * @property string $password
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
@@ -56,16 +57,29 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'role'              => App\Enums\UserRole::class,
     ];
 
     /**
-     * Get route key
+     * Get route key name.
      *
      * @return string
      */
     public function getRouteKeyName(): string
     {
         return 'nickname';
+    }
+
+    /**
+     * Hash password when creating user.
+     *
+     * @param string $value
+     *
+     * @return void
+     */
+    public function setPasswordAttribute(string $value): void
+    {
+        $this->attributes['password'] = Hash::make($value);
     }
 
 }
