@@ -25,11 +25,9 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'edit articles']);
 
         // create roles
-        $adminRole = Role::create(['name' => 'admin']);
-        $programmerRole = Role::create(['name' => 'programmer']);
-        $managerRole = Role::create(['name' => 'manager']);
-
-        // $programmerRole->givePermissionTo('edit articles');
+        $admin = Role::create(['name' => 'admin']);
+        $programmer = Role::create(['name' => 'programmer']);
+        $manager = Role::create(['name' => 'manager']);
 
         // Возможно понадобвиться, если не смогу нормально права давать
         // $adminRole->givePermissionTo(Permission::all());
