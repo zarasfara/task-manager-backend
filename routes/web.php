@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// test line
 Route::get("/{any}", function () {
     return redirect(config('app.frontend_url'));
 })->where('any', '.*');
