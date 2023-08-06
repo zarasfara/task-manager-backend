@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Artisan;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -22,14 +22,29 @@ class RolesAndPermissionsSeeder extends Seeder
         Artisan::call('cache:forget spatie.permission.cache');
 
         // create permissions
-        Permission::create(['name' => 'edit articles']);
+        $permissions = [
+            'edit articles',
+            'give rights',
+            'give permissions',
+        ];
+
+        $now = Carbon::now();
+        $permissionModels = collect($permissions)->map(function ($permission) use ($now) {
+            return [
+                'name' => $permission,
+                'guard_name' => 'web',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ];
+        });
+
+        Permission::query()->insert($permissionModels->toArray());
 
         // create roles
         $admin = Role::create(['name' => 'admin']);
         $programmer = Role::create(['name' => 'programmer']);
         $manager = Role::create(['name' => 'manager']);
 
-        // Возможно понадобвиться, если не смогу нормально права давать
-        // $adminRole->givePermissionTo(Permission::all());
+        $admin->syncPermissions(Permission::all());
     }
 }

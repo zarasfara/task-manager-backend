@@ -2,17 +2,15 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\UserRole;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 
 /**
- * Undocumented class
+ * @property string $role
  */
-class LoginRequest extends FormRequest
+class GiveRoleRequest extends FormRequest
 {
-    public string $email;
-
-    public string $password;
-
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -29,8 +27,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email'],
-            'password' => ['required'],
+            'role' => [new Enum(UserRole::class)],
         ];
     }
 }
