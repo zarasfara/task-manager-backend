@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\Admin\UserController;
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\Admin\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +35,10 @@ Route::group([
         Route::post('user/create', [UserController::class, 'create'])->name('user.create');
     });
 
+    Route::group([
+        'prefix' => 'roles',
+        'middleware' => 'role:admin'
+    ], function(){
+        Route::post('give-role/{user}', [RoleController::class, 'giveRole'])->name('role.give');
+    });
 });
