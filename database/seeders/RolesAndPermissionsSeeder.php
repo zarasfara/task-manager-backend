@@ -22,13 +22,14 @@ class RolesAndPermissionsSeeder extends Seeder
         Artisan::call('cache:forget spatie.permission.cache');
 
         // create permissions
-        Permission::create(['name' => 'edit articles']);
+        $permission = Permission::create(['name' => 'edit articles']);
 
         // create roles
         $admin = Role::create(['name' => 'admin']);
         $programmer = Role::create(['name' => 'programmer']);
         $manager = Role::create(['name' => 'manager']);
 
+        $admin->givePermissionTo($permission);
         // Возможно понадобвиться, если не смогу нормально права давать
         // $adminRole->givePermissionTo(Permission::all());
     }

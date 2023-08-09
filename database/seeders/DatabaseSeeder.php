@@ -28,6 +28,5 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $admin->assignRole('admin');
-        $admin->givePermissionTo('edit articles');
     }
 }
