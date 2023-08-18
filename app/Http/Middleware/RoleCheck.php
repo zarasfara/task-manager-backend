@@ -16,9 +16,10 @@ class RoleCheck
      */
     public function handle(Request $request, Closure $next, string $role): Response
     {
-        if($request->user()->hasRole(UserRole::from($role)->value)){
+        if ($request->user()->hasRole(UserRole::from($role)->value)) {
             return $next($request);
         }
+
         return response('Не достаточно прав', 403);
     }
 }

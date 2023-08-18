@@ -14,6 +14,6 @@ class BindServiceProvider extends ServiceProvider
      * @var array
      */
     public $singletons = [
-        RoleInterface::class => RoleService::class
+        RoleInterface::class => RoleService::class,
     ];
 }

@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -22,8 +20,8 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory(1)->create();
 
         $admin = \App\Models\User::factory()->create([
-            'name'     => 'admin',
-            'email'    => 'admin@mail.com',
+            'name' => 'admin',
+            'email' => 'admin@mail.com',
             'password' => 'admin',
         ]);
 

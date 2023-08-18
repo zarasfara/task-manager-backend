@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\V1\Admin\RoleController;
 use App\Http\Controllers\Api\V1\Admin\UserController;
 use App\Http\Controllers\Api\V1\AuthController;
-use App\Http\Controllers\Api\V1\Admin\RoleController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,14 +21,16 @@ use App\Http\Controllers\Api\V1\Admin\RoleController;
 Route::post('login', [AuthController::class, 'login'])->name('login');
 
 Route::group([
-    'prefix'     => 'v1',
-    'as'         => 'api.v1.',
-    'middleware' => ['auth:sanctum']
+    'prefix' => 'v1',
+    'as' => 'api.v1.',
+    'middleware' => ['auth:sanctum'],
 ], function () {
 
     Route::prefix('auth')->group(function () {
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
-        Route::get('user', [AuthController::class, 'user'])->name('get.user');
+        Route::get('user', function () {
+            return request()->user();
+        })->name('get.user');
     });
 
     Route::group(['prefix' => 'admin'], function () {
@@ -37,8 +39,8 @@ Route::group([
 
     Route::group([
         'prefix' => 'roles',
-        'middleware' => 'role:admin'
-    ], function(){
+        'middleware' => 'permission:give permissions',
+    ], function () {
         Route::post('give-role/{user}', [RoleController::class, 'giveRole'])->name('role.give');
     });
 });

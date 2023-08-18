@@ -10,10 +10,6 @@ enum UserRole: string
     case Programmer = 'programmer';
     case Manager = 'manager';
 
-    /**
-     *
-     * @return string
-     */
     public function getRoleName(): string
     {
         return match ($this) {
