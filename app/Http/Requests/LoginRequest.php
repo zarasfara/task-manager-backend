@@ -8,13 +8,12 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Undocumented class
+ *
+ * @property string $email
+ * @property string $password
  */
 class LoginRequest extends FormRequest
 {
-    public string $email;
-
-    public string $password;
-
     /**
      * Determine if the user is authorized to make this request.
      */

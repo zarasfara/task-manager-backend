@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature;
 
 use App\Enums\UserRole;
@@ -12,7 +14,7 @@ class RoleTest extends TestCase
     use RefreshDatabase;
 
     private User $user;
-    
+
     public function setUp(): void
     {
         parent::setUp();
@@ -22,8 +24,7 @@ class RoleTest extends TestCase
         $admin = User::where(['name' => 'admin'])->first();
 
         $response = $this->postJson(route('api.v1.login'), ['email' => $admin->email, 'password' => 'admin']);
-        
-        $this->withHeaders(['Authorization' => 'Bearer ' . $response['access_token']]);
+        $this->withHeaders(['Authorization' => 'Bearer '.$response['access_token']]);
 
         $this->user = User::factory()->create();
     }
@@ -31,8 +32,7 @@ class RoleTest extends TestCase
     public function test_user_with_permission_can_give_role(): void
     {
         $response = $this->postJson(route('api.v1.role.give', $this->user->nickname), ['role' => UserRole::Admin->value]);
-        
-        $response->assertStatus(200)->assertJson(['message' => 'Роль выдана']);
+        $response->assertStatus(200)->assertJson(['message' => __('messages.roles.granted')]);
 
         $this->assertTrue($this->user->hasRole(UserRole::Admin->value));
     }
@@ -47,7 +47,7 @@ class RoleTest extends TestCase
     public function test_validation_fails_for_invalid_role(): void
     {
         $response = $this->postJson(route('api.v1.role.give', $this->user->nickname), ['role' => 'InvalidRole']);
-        
+
         $response->assertStatus(422)->assertJsonValidationErrors(['role']);
     }
 }
