@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
 use App\Enums\UserRole;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
+
 /**
  * @property string $role
  */
@@ -26,7 +29,7 @@ class GiveRoleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'role' => [new Enum(UserRole::class)]
+            'role' => [new Enum(UserRole::class)],
         ];
     }
 }

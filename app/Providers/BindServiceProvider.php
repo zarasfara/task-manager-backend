@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
 use App\Services\Interfaces\RoleInterface;
@@ -14,6 +16,6 @@ class BindServiceProvider extends ServiceProvider
      * @var array
      */
     public $singletons = [
-        RoleInterface::class => RoleService::class
+        RoleInterface::class => RoleService::class,
     ];
 }

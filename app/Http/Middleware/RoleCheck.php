@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use App\Enums\UserRole;
@@ -16,9 +18,10 @@ class RoleCheck
      */
     public function handle(Request $request, Closure $next, string $role): Response
     {
-        if($request->user()->hasRole(UserRole::from($role)->value)){
+        if ($request->user()->hasRole(UserRole::from($role)->value)) {
             return $next($request);
         }
+
         return response('Не достаточно прав', 403);
     }
 }
