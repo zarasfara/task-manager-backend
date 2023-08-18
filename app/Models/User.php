@@ -62,8 +62,6 @@ class User extends Authenticatable
 
     /**
      * Get route key name.
-     *
-     * @return string
      */
     public function getRouteKeyName(): string
     {
@@ -72,14 +70,9 @@ class User extends Authenticatable
 
     /**
      * Hash password when creating user.
-     *
-     * @param string $value
-     *
-     * @return void
      */
     public function setPasswordAttribute(string $value): void
     {
         $this->attributes['password'] = Hash::make($value);
     }
-
 }

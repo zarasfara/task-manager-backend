@@ -8,16 +8,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
     /**
      * handle log in
      *
-     * @param LoginRequest $request
      *
      * @return void
      */
@@ -25,7 +24,7 @@ class AuthController extends Controller
     {
         $credentials = $request->validated();
 
-        if (!Auth::attempt($credentials)) {
+        if (! Auth::attempt($credentials)) {
             return response()->json(['errors' => 'Такой учётной записи не существует'], Response::HTTP_UNAUTHORIZED);
         }
 
@@ -36,7 +35,7 @@ class AuthController extends Controller
         $accessToken = $user->createToken('access_token')->plainTextToken;
 
         return response()->json([
-            'user'         => new UserResource($user),
+            'user' => new UserResource($user),
             'access_token' => $accessToken,
         ], Response::HTTP_OK);
     }
@@ -44,7 +43,6 @@ class AuthController extends Controller
     /**
      * handle logout
      *
-     * @param Request $request
      *
      * @return void
      */

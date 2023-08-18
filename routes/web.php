@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get("/{any}", function () {
+Route::get('/{any}', function () {
     return redirect(config('app.frontend_url'));
 })->where('any', '.*');
