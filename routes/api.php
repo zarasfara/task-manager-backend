@@ -18,8 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('login', [AuthController::class, 'login'])->name('login');
-
 Route::group([
     'prefix' => 'v1',
     'as' => 'api.v1.',
@@ -27,6 +25,7 @@ Route::group([
 ], function () {
 
     Route::prefix('auth')->group(function () {
+        Route::withoutMiddleware('auth:sanctum')->post('login', [AuthController::class, 'login'])->name('login');
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
         Route::get('user', function () {
             return request()->user();
