@@ -22,7 +22,7 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'surname' => fake()->lastName,
             'avatar' => fake()->imageUrl,
-            'nickname' => fake()->citySuffix,
+            'nickname' => fake()->unique()->userName,
             'email' => fake()->safeEmail(),
             'password' => 'password',
             'remember_token' => Str::random(10),

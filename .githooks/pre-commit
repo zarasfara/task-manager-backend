@@ -1,0 +1,10 @@
+#!/bin/sh
+
+vendor/bin/pint
+
+if [ $? -ne 0 ]; then
+    echo "Ошибка выполнения команды 'vendor/bin/pint'"
+    exit 1
+fi
+
+exit 0

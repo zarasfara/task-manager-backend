@@ -29,7 +29,19 @@ class GiveRoleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'role' => [new Enum(UserRole::class)],
+            'role' => ['required', new Enum(UserRole::class)],
+        ];
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array<string, string>
+     */
+    public function attributes(): array
+    {
+        return [
+            'role' => '"роль"',
         ];
     }
 }
