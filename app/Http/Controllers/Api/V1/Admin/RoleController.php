@@ -22,6 +22,6 @@ class RoleController extends Controller
 
         $this->role->giveRole($user, $request->role);
 
-        return response()->json(['message' => 'Роль выдана']);
+        return response()->json(['message' => __('messages.roles.granted')]);
     }
 }

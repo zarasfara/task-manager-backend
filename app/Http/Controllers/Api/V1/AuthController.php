@@ -25,7 +25,7 @@ class AuthController extends Controller
         $credentials = $request->validated();
 
         if (! Auth::attempt($credentials)) {
-            return response()->json(['errors' => 'Такой учётной записи не существует'], Response::HTTP_UNAUTHORIZED);
+            return response()->json(['errors' => __('auth.errors.failed')], Response::HTTP_UNAUTHORIZED);
         }
 
         /**
@@ -52,6 +52,6 @@ class AuthController extends Controller
 
         $user->tokens()->delete();
 
-        return response()->json(['message' => 'Logged out successfully'], Response::HTTP_OK);
+        return response()->json(['message' => __('auth.logout_success')], Response::HTTP_OK);
     }
 }
