@@ -7,13 +7,8 @@ else
     echo "Directory vendor/autoload exists. Dependencies already installed."
 fi
 
-# if [ ! -f ".env"]; then
-#     echo "Copying the .env file"
-#     cp .env.example .env
-# else
-#     echo ".env file already exists"
-# fi
 
-# php artisan ket:generate
-
-# exec docker-php-entrypoint "$@"
+php artisan key:generate
+php artisan migrate
+php artisan db:seed
+php artisan serve
