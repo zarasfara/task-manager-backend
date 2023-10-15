@@ -23,3 +23,7 @@ WORKDIR /var/www
 
 RUN chown -R www-data:www-data storage/ bootstrap/cache
 RUN chmod -R 775 storage bootstrap/cache
+# Делаем скрипт исполняемым
+RUN ["chmod", "+x", "./docker/dev/docker-entrypoint.sh"]
+ENTRYPOINT ["sh", "./docker/dev/docker-entrypoint.sh"]
+
