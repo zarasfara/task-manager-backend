@@ -1,80 +1,29 @@
-## Requirements
-
-* PHP 8.0 or higher
-* Git
-* Composer (>=2.4)
-* MySQL (>=8.0)
-* Node v 16.17.0
+# Task manager backend
 
 ## Installation
 
 Clone the repo locally:
 
 ```sh
-git clone https://github.com/zarasfara/vue-laravel-manager
-cd vue-laravel-manager
+git clone git@github.com:zarasfara/task-manager-backend.git
 ```
 
-Install PHP dependencies:
-
+Run command:
 ```sh
-composer install
+make init
 ```
 
-Install NPM dependencies:
+Change APP_ENV credentials in .env to dev or prod.
 
-```sh
-npm i
-```
-
-Setup configuration
-```sh
-# windows
-copy .env.example .env
-# linux
-cp .env.example .env
-```
-
-Generate application key:
-
-```sh
-php artisan key:generate
-```
-
-Change DB credentials in .env :
+Change DB credentials in .env:
 
 * DB_DATABASE
 * DB_USERNAME
 * DB_PASSWORD
 
-Run database migrations:
+Run this command to build app:
 
 ```sh
-php artisan migrate
+make d_build
 ```
-
-Run database seeder:
-
-```sh
-php artisan db:seed
-```
-
-Run npm:
-
-```sh
-npm dev
-#or
-npm build
-```
-
-Run artisan dev serve:
-
-```sh
-php artisan serve
-```
-
-You're ready to go! Visit application in your browser, and login with:
-
-- **Email:** admin@mail.com
-- **Password:** admin123
 
