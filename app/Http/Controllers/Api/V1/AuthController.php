@@ -8,50 +8,48 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Response;
+use Symfony\Component\HttpFoundation\Response as symfonyResponse;
 
-class AuthController extends Controller
+final class AuthController extends Controller
 {
-    /**
-     * handle log in
-     *
-     *
-     * @return void
-     */
     public function login(LoginRequest $request): JsonResponse
     {
         $credentials = $request->validated();
 
         if (! Auth::attempt($credentials)) {
-            return response()->json(['errors' => __('auth.errors.failed')], Response::HTTP_UNAUTHORIZED);
+            return Response::json(['errors' => __('auth.errors.failed')], symfonyResponse::HTTP_UNAUTHORIZED);
         }
 
         /**
-         * @var \App\Models\User
+         * @var \App\Models\User $user
          */
         $user = Auth::user();
         $accessToken = $user->createToken('access_token')->plainTextToken;
 
-        return response()->json([
+        return Response::json([
             'user' => new UserResource($user),
             'access_token' => $accessToken,
-        ], Response::HTTP_OK);
+        ], symfonyResponse::HTTP_OK);
     }
 
-    /**
-     * handle logout
-     *
-     *
-     * @return void
-     */
-    public function logout(Request $request): JsonResponse
+    public function user(): JsonResponse
     {
-        $user = $request->user();
+        return Response::json([
+            'user' => new UserResource(Auth::user()),
+        ]);
+    }
+
+    public function logout(): JsonResponse
+    {
+        /**
+         * @var \App\Models\User $user
+         */
+        $user = Auth::user();
 
         $user->tokens()->delete();
 
-        return response()->json(['message' => __('auth.logout_success')], Response::HTTP_OK);
+        return Response::json(['message' => __('auth.logout_success')], symfonyResponse::HTTP_OK);
     }
 }

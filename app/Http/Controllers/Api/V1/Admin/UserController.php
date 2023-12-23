@@ -7,14 +7,15 @@ namespace App\Http\Controllers\Api\V1\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Response;
+use Symfony\Component\HttpFoundation\Response as symfonyResponse;
 
-class UserController extends Controller
+final class UserController extends Controller
 {
     public function create(Request $request): JsonResponse
     {
-        return response()->json([
+        return Response::json([
             'user' => 'user',
-        ], Response::HTTP_CREATED);
+        ], symfonyResponse::HTTP_CREATED);
     }
 }

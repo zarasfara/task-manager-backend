@@ -22,8 +22,12 @@ Change DB credentials in .env:
 * DB_PASSWORD
 
 Run this command to build app:
-
 ```sh
-make d_build
+docker compose up -d --build
+```
+
+In container with app use next commands
+```sh
+make start
 ```
 
