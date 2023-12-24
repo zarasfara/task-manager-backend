@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use App\Enums\UserRole;
+use App\Enums\Role;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Enum;
 
 /**
- * @property string $role
+ * @property-read string $role
  */
 class GiveRoleRequest extends FormRequest
 {
@@ -18,7 +19,7 @@ class GiveRoleRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Auth::user()->isAdmin();
     }
 
     /**
@@ -29,7 +30,7 @@ class GiveRoleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'role' => ['required', new Enum(UserRole::class)],
+            'role' => ['required', new Enum(Role::class)],
         ];
     }
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
-use App\Enums\UserRole;
+use App\Enums\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -31,10 +31,10 @@ class RoleTest extends TestCase
 
     public function test_user_with_permission_can_give_role(): void
     {
-        $response = $this->postJson(route('api.v1.role.give', $this->user->nickname), ['role' => UserRole::Admin->value]);
+        $response = $this->postJson(route('api.v1.role.give', $this->user->nickname), ['role' => Role::Admin->value]);
         $response->assertStatus(200)->assertJson(['message' => __('messages.roles.granted')]);
 
-        $this->assertTrue($this->user->hasRole(UserRole::Admin->value));
+        $this->assertTrue($this->user->hasRole(Role::Admin->value));
     }
 
     public function test_validation_fails_for_missing_role(): void

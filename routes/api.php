@@ -24,14 +24,6 @@ Route::group([
     'middleware' => ['auth:sanctum'],
 ], function () {
 
-    Route::prefix('auth')->group(function () {
-        Route::withoutMiddleware('auth:sanctum')->post('login', [AuthController::class, 'login'])->name('login');
-        Route::post('logout', [AuthController::class, 'logout'])->name('logout');
-        Route::get('user', function () {
-            return request()->user();
-        })->name('get.user');
-    });
-
     Route::group(['prefix' => 'admin'], function () {
         Route::post('user/create', [UserController::class, 'create'])->name('user.create');
     });
@@ -42,4 +34,10 @@ Route::group([
     ], function () {
         Route::post('give-role/{user}', [RoleController::class, 'giveRole'])->name('role.give');
     });
+});
+
+Route::prefix('auth')->group(function () {
+    Route::post('login', [AuthController::class, 'login'])->name('login');
+    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('user', [AuthController::class, 'user'])->middleware('auth:sanctum')->name('user');
 });

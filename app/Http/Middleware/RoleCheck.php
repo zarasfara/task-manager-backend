@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use App\Enums\UserRole;
+use App\Enums\Role;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +18,7 @@ class RoleCheck
      */
     public function handle(Request $request, Closure $next, string $role): Response
     {
-        if ($request->user()->hasRole(UserRole::from($role)->value)) {
+        if ($request->user()->hasRole(Role::from($role)->value)) {
             return $next($request);
         }
 
