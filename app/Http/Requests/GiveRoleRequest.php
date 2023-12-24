@@ -12,14 +12,14 @@ use Illuminate\Validation\Rules\Enum;
 /**
  * @property-read string $role
  */
-class GiveRoleRequest extends FormRequest
+final class GiveRoleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return Auth::user()->isAdmin();
+        return Auth::user()->hasPermissionTo('give permissions');
     }
 
     /**

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\Api\V1\Admin\RoleController;
-use App\Http\Controllers\Api\V1\Admin\UserController;
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\EmployeeController;
+use App\Http\Controllers\Api\V1\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,26 +18,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group([
-    'prefix' => 'v1',
-    'as' => 'api.v1.',
-    'middleware' => ['auth:sanctum'],
-], function () {
+Route::prefix('v1')->group(function () {
 
-    Route::group(['prefix' => 'admin'], function () {
-        Route::post('user/create', [UserController::class, 'create'])->name('user.create');
-    });
+    Route::middleware('auth:sanctum')->group(function () {
 
-    Route::group([
-        'prefix' => 'roles',
-        'middleware' => 'permission:give permissions',
-    ], function () {
-        Route::post('give-role/{user}', [RoleController::class, 'giveRole'])->name('role.give');
+        Route::prefix('employees')->group(function () {
+            Route::post('/', [EmployeeController::class, 'create'])->name('api.v1.employees.create');
+            Route::post('/{user}/permissions', [RoleController::class, 'giveRole'])
+                ->middleware('permission:give permissions')
+                ->name('api.v1.employees.permissions.assign');
+        });
     });
 });
 
 Route::prefix('auth')->group(function () {
-    Route::post('login', [AuthController::class, 'login'])->name('login');
-    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('user', [AuthController::class, 'user'])->middleware('auth:sanctum')->name('user');
+    Route::get('user', [AuthController::class, 'user'])->middleware('auth:sanctum')->name('api.user');
+    Route::post('login', [AuthController::class, 'login'])->name('api.login');
+    Route::post('logout', [AuthController::class, 'logout'])->name('api.logout');
 });
