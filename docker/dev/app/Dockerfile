@@ -1,5 +1,5 @@
 # Используем официальный образ PHP 8.0 и добавляем расширения для работы с Laravel
-FROM php:8.1-fpm
+FROM php:8.3-fpm
 
 RUN apt-get update && \
     apt-get install -y \
@@ -23,7 +23,4 @@ WORKDIR /var/www
 
 RUN chown -R www-data:www-data storage/ bootstrap/cache
 RUN chmod -R 775 storage bootstrap/cache
-# Делаем скрипт исполняемым
-RUN ["chmod", "+x", "./docker/dev/docker-entrypoint.sh"]
-ENTRYPOINT ["sh", "./docker/dev/docker-entrypoint.sh"]
 
