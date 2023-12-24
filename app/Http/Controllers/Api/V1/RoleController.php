@@ -2,24 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Api\V1\Admin;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Enums\Role;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GiveRoleRequest;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
 
 final class RoleController extends Controller
 {
-    public function giveRole(GiveRoleRequest $request): JsonResponse
+    public function giveRole(GiveRoleRequest $request, User $user): JsonResponse
     {
         $request->validated();
-
-        /**
-         * @var App\Models\User $user
-         */
-        $user = Auth::user();
 
         $user->assignRole(Role::from($request->role)->value);
 

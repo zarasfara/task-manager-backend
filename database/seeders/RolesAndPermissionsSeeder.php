@@ -23,7 +23,7 @@ class RolesAndPermissionsSeeder extends Seeder
 
         // create permissions
         $permissions = [
-            'edit articles',
+            'create employee',
             'give rights',
             'give permissions',
         ];
@@ -45,6 +45,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $programmer = Role::create(['name' => 'programmer']);
         $manager = Role::create(['name' => 'manager']);
 
+        // add all permissions to admin
         $admin->syncPermissions(Permission::all());
     }
 }

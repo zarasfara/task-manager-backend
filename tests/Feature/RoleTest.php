@@ -23,15 +23,15 @@ class RoleTest extends TestCase
 
         $admin = User::where(['name' => 'admin'])->first();
 
-        $response = $this->postJson(route('api.v1.login'), ['email' => $admin->email, 'password' => 'admin']);
-        $this->withHeaders(['Authorization' => 'Bearer '.$response['access_token']]);
+        $response = $this->postJson(route('api.login'), ['email' => $admin->email, 'password' => 'admin']);
+        $this->withToken($response['access_token']);
 
         $this->user = User::factory()->create();
     }
 
     public function test_user_with_permission_can_give_role(): void
     {
-        $response = $this->postJson(route('api.v1.role.give', $this->user->nickname), ['role' => Role::Admin->value]);
+        $response = $this->postJson(route('api.v1.employees.permissions.assign', $this->user->nickname), ['role' => Role::Admin->value]);
         $response->assertStatus(200)->assertJson(['message' => __('messages.roles.granted')]);
 
         $this->assertTrue($this->user->hasRole(Role::Admin->value));
@@ -39,14 +39,14 @@ class RoleTest extends TestCase
 
     public function test_validation_fails_for_missing_role(): void
     {
-        $response = $this->postJson(route('api.v1.role.give', $this->user->nickname), []);
+        $response = $this->postJson(route('api.v1.employees.permissions.assign', $this->user->nickname));
 
         $response->assertStatus(422)->assertJsonValidationErrors(['role']);
     }
 
     public function test_validation_fails_for_invalid_role(): void
     {
-        $response = $this->postJson(route('api.v1.role.give', $this->user->nickname), ['role' => 'InvalidRole']);
+        $response = $this->postJson(route('api.v1.employees.permissions.assign', $this->user->nickname), ['role' => 'InvalidRole']);
 
         $response->assertStatus(422)->assertJsonValidationErrors(['role']);
     }
