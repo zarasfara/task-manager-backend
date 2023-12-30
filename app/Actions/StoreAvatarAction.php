@@ -6,18 +6,23 @@ namespace App\Actions;
 
 use Illuminate\Http\UploadedFile;
 
+/**
+ * @class App\Actions\StoreAvatarAction
+ */
 final class StoreAvatarAction
 {
     /**
      * Сохранение аватара пользователя.
      *
-     * @param  UploadedFile  $file Файл, который нужно сохранить.
-     * @return string Строка с путем до файла.
+     * Метод сохраняет файл и возвращает его путь.
      *
-     * @throws \Exception
+     * @param  UploadedFile  $file Изображение, которое нужно сохранить.
+     * @param  string  $path Путь сохранения.
+     * @param  string  $disk Диск, куда нужно сохранить.
+     * @return string Строка с путем до файла.
      */
-    public function __invoke(UploadedFile $file): string
+    public function __invoke(UploadedFile $file, string $path, string $disk): string
     {
-        return $file->store('avatars', 'public');
+        return $file->store($path, $disk);
     }
 }
