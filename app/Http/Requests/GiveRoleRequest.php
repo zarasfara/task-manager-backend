@@ -19,7 +19,7 @@ final class GiveRoleRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::user()->hasPermissionTo('give permissions');
+        return Auth::user()->hasPermissionTo(\App\Enums\Permission::AssignPermission->value);
     }
 
     /**

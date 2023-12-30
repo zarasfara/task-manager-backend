@@ -25,7 +25,7 @@ Route::prefix('v1')->group(function () {
         Route::prefix('employees')->group(function () {
             Route::post('/', [EmployeeController::class, 'create'])->name('api.v1.employees.create');
             Route::post('/{user}/permissions', [RoleController::class, 'giveRole'])
-                ->middleware('permission:give permissions')
+                ->middleware('permission:'.\App\Enums\Permission::AssignPermission->value)
                 ->name('api.v1.employees.permissions.assign');
         });
     });

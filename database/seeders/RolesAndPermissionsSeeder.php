@@ -23,9 +23,8 @@ class RolesAndPermissionsSeeder extends Seeder
 
         // create permissions
         $permissions = [
-            'create employee',
-            'give rights',
-            'give permissions',
+            \App\Enums\Permission::AssignPermission->value,
+            \App\Enums\Permission::CreateEmployee->value,
         ];
 
         $now = Carbon::now();
@@ -41,9 +40,9 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::query()->insert($permissionModels->toArray());
 
         // create roles
-        $admin = Role::create(['name' => 'admin']);
-        $programmer = Role::create(['name' => 'programmer']);
-        $manager = Role::create(['name' => 'manager']);
+        $admin = Role::create(['name' => \App\Enums\Role::Admin->value]);
+        $programmer = Role::create(['name' => \App\Enums\Role::Programmer->value]);
+        $manager = Role::create(['name' => \App\Enums\Role::Manager->value]);
 
         // add all permissions to admin
         $admin->syncPermissions(Permission::all());

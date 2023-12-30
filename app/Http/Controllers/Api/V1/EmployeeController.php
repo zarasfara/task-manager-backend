@@ -21,7 +21,7 @@ final class EmployeeController extends Controller
     {
         $data = $request->validated();
 
-        $data['avatar'] = $storeAvatarAction($request->file('avatar'));
+        $data['avatar'] = $storeAvatarAction($request->file('avatar'), 'avatars', 'public');
 
         $user = User::create($data);
 

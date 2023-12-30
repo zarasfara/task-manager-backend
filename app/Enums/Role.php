@@ -10,7 +10,7 @@ enum Role: string
     case Programmer = 'programmer';
     case Manager = 'manager';
 
-    public function getRoleName(): string
+    public function label(): string
     {
         return match ($this) {
             self::Admin => 'Администратор',
