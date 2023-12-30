@@ -39,7 +39,7 @@ class RoleTest extends TestCase
 
     public function test_validation_fails_for_missing_role(): void
     {
-        $response = $this->postJson(route('api.v1.employees.permissions.assign', $this->user->nickname));
+        $response = $this->postJson(route('api.v1.role.give', $this->user->nickname), []);
 
         $response->assertStatus(422)->assertJsonValidationErrors(['role']);
     }
